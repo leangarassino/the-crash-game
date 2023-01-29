@@ -1,0 +1,19 @@
+.step-one{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding-top: 15px;
+    
+    p{
+        text-align: justify;
+        margin-bottom: 60px;
+    }    
+    
+    &__container{
+        max-width: 400px;
+        button{
+            width: 100%;
+        }
+    }
+    
+}

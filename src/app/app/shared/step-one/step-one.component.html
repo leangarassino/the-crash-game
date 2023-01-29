@@ -1,0 +1,24 @@
+<div class="step-one">
+    <div class="step-one__container">
+        <p>Debido al impedimento que produjo la pandemia producida por el COVID-19, innovamos en una nueva forma de apostar, 100% segura y desde tu casa, respetando todos los requerimientos del distanciamiento social impuesto por el gobierno. Te invitamos a que pruebes y te diviertas jugando a The Crash Game.</p>
+        <form [formGroup]="form" (ngSubmit)="submit()">
+            <p>Ingrese su nombre</p>
+            <mat-form-field>
+                <mat-label>Nombre</mat-label>
+                <input formControlName="name" matInput>
+                <mat-error>
+                    Debe ingresar su nombre.
+                </mat-error>
+            </mat-form-field>
+            <p>Ingrese el monto que desea invertir</p>
+            <mat-form-field>
+                <mat-label>Monto</mat-label>
+                <input formControlName="money" type="number" matInput>
+                <mat-error>
+                    Debe ingresar un monto mayor o igual a 1.
+                </mat-error>
+            </mat-form-field>
+            <button [disabled]="form.invalid" mat-raised-button>Comenzar</button>
+        </form>
+    </div>
+</div>

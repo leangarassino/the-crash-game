@@ -1,1 +1,2 @@
-<p>home works!</p>
+<app-step-one *ngIf="step === 1" (changeStep)="step = $event"></app-step-one>
+<app-step-two *ngIf="step === 2"></app-step-two>

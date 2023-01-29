@@ -1,0 +1,39 @@
+.step-one{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding-top: 30px;
+    
+    p{
+        text-align: justify;
+        margin-bottom: 60px;
+    }
+    
+    form{
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        p{
+            margin: unset;
+            font-weight: 600;
+        }
+        mat-form-field{
+            margin-bottom: 10px;
+        }
+    }
+    
+    &__container{
+        max-width: 400px;
+        button{
+            width: 100%;
+        }
+    } 
+
+    // Elimina las flechas del input Number 
+    input[type=number]::-webkit-inner-spin-button, 
+    input[type=number]::-webkit-outer-spin-button { 
+    -webkit-appearance: none; 
+    margin: 0; 
+    }
+    // Elimina las flechas del input Number 
+}
