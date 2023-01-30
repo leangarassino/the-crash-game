@@ -9,11 +9,12 @@ import { FormBuilder, FormControl, Validators } from '@angular/forms';
 export class StepOneComponent {
 
   @Output() changeStep = new EventEmitter<number>();
+  @Output() dataUser = new EventEmitter<any>();
   public name = new FormControl();
 
 
   public form = this.fb.group({
-    name: ['', Validators.required],
+    name: [''],
     money: ['', [Validators.required, Validators.min(1)]]
   })
 
@@ -28,6 +29,7 @@ export class StepOneComponent {
   public submit(){
     console.log('form', this.form.value)
     this.changeStep.emit(2)
+    this.dataUser.emit(this.form.value)
   }
 
 }

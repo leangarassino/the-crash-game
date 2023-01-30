@@ -1,0 +1,27 @@
+<h2 mat-dialog-title>{{description}}</h2>
+
+<mat-dialog-content [formGroup]="form">   
+    <div class="container">
+        <mat-form-field>
+            <mat-label>Tu apuesta</mat-label>
+            <input 
+            type="number"
+            matInput
+            formControlName="bet"
+            >
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Tu predicción</mat-label>
+            <input 
+            type="number" 
+            matInput
+            formControlName="prediction"
+            >
+        </mat-form-field>
+    </div> 
+</mat-dialog-content>
+
+<mat-dialog-actions>
+    <button [disabled]="form.invalid" class="button" mat-raised-button (click)="save()">PLAY</button>
+    <button class="button-back" color="primary" mat-button (click)="close()">Salir</button>
+</mat-dialog-actions>

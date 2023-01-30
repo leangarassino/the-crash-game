@@ -3,10 +3,16 @@
     align-items: center;
     flex-direction: column;
     padding-top: 30px;
+    @media screen and (max-width: 600px) {
+        padding-top: 50px;
+    }
     
     p{
         text-align: justify;
         margin-bottom: 60px;
+        @media screen and (max-width: 600px) {
+            margin-bottom: 100px;
+        }
     }
     
     form{
@@ -27,13 +33,5 @@
         button{
             width: 100%;
         }
-    } 
-
-    // Elimina las flechas del input Number 
-    input[type=number]::-webkit-inner-spin-button, 
-    input[type=number]::-webkit-outer-spin-button { 
-    -webkit-appearance: none; 
-    margin: 0; 
-    }
-    // Elimina las flechas del input Number 
+    }   
 }

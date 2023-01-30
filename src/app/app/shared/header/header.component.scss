@@ -2,8 +2,16 @@
     justify-content: space-between;
     background-color: white;
     border-bottom: 1px solid rgba(0,0,0,0.1);
-    h1{
-        // color: white;
+    height: 64px;
+    h1{        
         text-shadow: 1px 1px;
+        @media screen and (max-width: 600px) {
+            font-size: inherit;
+        }
+    }
+    h2{
+        @media screen and (max-width: 600px) {
+            font-size: inherit;
+        }
     }
 }

@@ -1,0 +1,15 @@
+<div class="chart">
+  <div class="chart__container">
+    <canvas  id="chartLine">{{ chart }}</canvas>
+    <div *ngIf="(currentValue > explotion) && viewResults"><h3>La bomba explotó en {{explotion | number}}<br> Tu predicción: {{currentBet.prediction}} <br>
+      <ng-container>        
+        {{currentBet.prediction > explotion ? 'Has perdido: $' + currentBet.bet : 'Has ganado: $' + ((currentBet.bet * currentBet.prediction ) | number)}}
+      </ng-container>      
+    </h3>  
+    <button *ngIf="activateButton" mat-raised-button (click)="openDialogAgain()">Apostar y volver a jugar</button>
+    </div>
+  </div>
+  <div>
+    <h3>Estadísticas:</h3>
+  </div>  
+</div>
