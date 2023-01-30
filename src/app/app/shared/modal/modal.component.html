@@ -9,6 +9,12 @@
             matInput
             formControlName="bet"
             >
+            <mat-error *ngIf="form.controls['bet'].hasError('min') || form.controls['bet'].hasError('required')">
+                Valor mayor o igual a 1.
+            </mat-error>
+            <mat-error *ngIf="form.controls['bet'].hasError('max')">
+                Saldo insuficiente.
+            </mat-error>
         </mat-form-field>
         <mat-form-field>
             <mat-label>Tu predicción</mat-label>
@@ -17,6 +23,9 @@
             matInput
             formControlName="prediction"
             >
+            <mat-error>
+                Valor entre 1 y 10.
+            </mat-error>
         </mat-form-field>
     </div> 
 </mat-dialog-content>

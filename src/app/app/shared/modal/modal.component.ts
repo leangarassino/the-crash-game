@@ -12,8 +12,8 @@ export class ModalComponent {
 
   public description!: string;
   public form: FormGroup = this.fb.group({
-    bet: ['', Validators.required],
-    prediction: ['', Validators.required]  
+    bet: [''],
+    prediction: ['', [Validators.required, Validators.min(1.01), Validators.max(9.99)]]  
   });
 
   constructor(
@@ -26,15 +26,18 @@ export class ModalComponent {
   }
   
   ngOnInit(): void {
-    
-    
+    this.setValidatorMaxBalance()
   }
-  
+  // Setea Validaciones en la apuesta
+  public setValidatorMaxBalance(){
+    this.form.controls["bet"].setValidators([Validators.required, Validators.min(1), Validators.max(parseInt(localStorage.getItem('balance') as string))]);
+    this.form.controls['bet'].updateValueAndValidity()
+  }
+  // Envía el formulario y cierra el modal
   public save(){
-    console.log('form', this.form.value);
     this.dialogRef.close(this.form.value);
   }
-
+  // Cierra el modal
   public close(){
     this.dialogRef.close(null);
   }

@@ -14,8 +14,11 @@
             <mat-form-field>
                 <mat-label>Tu apuesta</mat-label>
                 <input type="number" formControlName="bet" matInput>
-                <mat-error>
+                <mat-error *ngIf="form.controls['bet'].hasError('min') || form.controls['bet'].hasError('required')">
                     Debe ingresar un monto mayor o igual a 1.
+                </mat-error>
+                <mat-error *ngIf="form.controls['bet'].hasError('max')">
+                    Saldo insuficiente.
                 </mat-error>
             </mat-form-field>
             <mat-form-field>

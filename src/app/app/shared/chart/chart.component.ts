@@ -11,14 +11,13 @@ import { ModalComponent } from '../modal/modal.component';
 export class ChartComponent {
 
   public chart: any;
-  betNumber: number = 1;
-  initialValue = 1;
-  currentValue!: number;
-  explotion = (Math.floor(Math.random() * 10) + Math.random());
-  profit!: number;
-  firstBetCompleted: boolean = false;
-  viewResults: boolean = false;
-  activateButton: boolean = false;
+  public initialValue = 1;
+  public currentValue!: number;
+  public explotion = (Math.floor(Math.random() * 10) + Math.random());
+  public viewResults: boolean = false;
+  public activateButton: boolean = false;
+  public statsRound: {} | null = null;
+  private profit!: number;
   @Input() currentBet!: {bet: number, prediction: number};
   @Input() balance!: number;
   @Output() updateBalance = new EventEmitter<number>();
@@ -29,7 +28,7 @@ export class ChartComponent {
     this.createChart();
     this.incremental();
   }
-
+  // Función que setea y crea el gráfico de base
   private createChart(){  
     this.chart = new Chart("chartLine", {
       type: 'line',
@@ -52,7 +51,7 @@ export class ChartComponent {
       
     });
   }
-
+  // Función que va renderizando nuevos valores en el gráfico, de forma aleatoria (valores entre 0 y 1)
   private addDataInChart(){ 
     if(this.explotion < 1){
       this.explotion = this.explotion + 1;
@@ -60,12 +59,19 @@ export class ChartComponent {
     this.initialValue = this.initialValue + Math.random()
     this.currentValue = this.initialValue
     this.chart.data.labels.push('');
-    this.chart.data.datasets.forEach((dataset: any) => {
-        dataset.data.push(this.currentValue);
-    });
+    if(this.currentValue > this.explotion){
+      this.chart.data.datasets.forEach((dataset: any) => {
+          dataset.data.push(this.explotion);
+      });
+    } else {
+      this.chart.data.datasets.forEach((dataset: any) => {
+          dataset.data.push(this.currentValue);
+      });
+    }
     this.chart.update();
   }
-
+  // Función que incrementa hasta que evalúa si llego al número aleatorio, en donde explota.
+  // Además, calcula el resultado y las estadísticas, actualiza el balance y luego de 5 segundos, abre un modal. 
   private incremental(){
     setTimeout(() => {
       this.addDataInChart();
@@ -82,21 +88,36 @@ export class ChartComponent {
         } else {
           this.updateBalance.emit(-this.currentBet.bet)
         }
+        this.sendStats();
       }
     }, 1000);
   }
-
+  // Reúne las estadísticas para enviar al componente stats
+  private sendStats(){
+    let data: {} = 
+    {
+      data :
+      {
+      explotion: this.explotion, 
+      prediction: this.currentBet.prediction,
+      result: this.currentBet.prediction > this.explotion ? 'Has perdido: $' + this.currentBet.bet :
+      'Has ganado: $' + this.profit, 
+      profit: this.currentBet.prediction < this.explotion ? this.profit : null
+      }
+    }
+    this.statsRound = data;
+  }
+  // Resetea el juego y establece los valores por defecto
   private reset(){
     this.initialValue = 1;
     this.chart.config.data.datasets[0].data = ['1'];
     this.chart.config.data.labels = [''];
     this.chart.update();
     this.viewResults = false;
-    if(!this.firstBetCompleted) this.firstBetCompleted = true;
     this.explotion = (Math.floor(Math.random() * 10) + Math.random());
     this.incremental();      
   }
-
+  // Abre el modal para que el usuario vuelva a apostar y realice una predicción
   openDialog() {
 
     const dialogConfig = new MatDialogConfig();
@@ -112,7 +133,6 @@ export class ChartComponent {
 
     dialogRef.afterClosed().subscribe(
       data => {
-        console.log('data', data);
         if(data){
           this.reset();
           this.currentBet = data;
@@ -122,7 +142,7 @@ export class ChartComponent {
       }
   );  
   }
-
+  // Reabre el modal, en caso de que el usuario lo haya cerrado.
   public openDialogAgain(){
     this.activateButton = false;
     this.openDialog();

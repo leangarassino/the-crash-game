@@ -20,14 +20,7 @@ export class StepOneComponent {
 
   constructor(private fb: FormBuilder){}
 
-  // ngOnInit(): void {
-  //   //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
-  //   //Add 'implements OnInit' to the class.
-    
-  // }
-
   public submit(){
-    console.log('form', this.form.value)
     this.changeStep.emit(2)
     this.dataUser.emit(this.form.value)
   }

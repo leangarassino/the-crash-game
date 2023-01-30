@@ -15,25 +15,18 @@ export class HomeComponent {
   public dataUser!: {name: string, money: number};
   public dataFirstBet!: {bet: number, prediction: number};
   
-
-  ngOnInit(): void {
-    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
-    //Add 'implements OnInit' to the class.
-    // this.incremental();
-  }
-  
   public getUser(event: {name: string, money: number}){
-    console.log('event', event)
     this.dataUser = event
+    localStorage.setItem('name', event.name);
+    localStorage.setItem('balance', event.money.toString());
   }
 
   public getFirstBet(event: {bet: number, prediction: number}){
     this.dataFirstBet = event
-    console.log('dataFirstBet', this.dataFirstBet)
   }
 
   public updateBalance(event: number){
-    this.dataUser.money = this.dataUser.money + event 
-    console.log('money', this.dataUser.money)
+    this.dataUser.money = this.dataUser.money + event
+    localStorage.setItem('balance', this.dataUser.money.toString());
   }
 }

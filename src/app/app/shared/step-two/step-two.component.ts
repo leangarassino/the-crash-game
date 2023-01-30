@@ -11,11 +11,20 @@ export class StepTwoComponent {
   @Output() changeStep = new EventEmitter<number>();
   @Output() dataFirstBet = new EventEmitter<any>();
   public form = this.fb.group({
-    bet: ['', [Validators.required, Validators.min(1)]],    
+    bet: [''],    
     prediction: ['', [Validators.required, Validators.min(1.01), Validators.max(9.99)]]
   })
 
   constructor(private fb: FormBuilder){}
+
+  ngOnInit(): void {
+    this.setValidatorMaxBalance()
+  }
+  // Setea Validaciones en la apuesta
+  public setValidatorMaxBalance(){
+    this.form.controls["bet"].setValidators([Validators.required, Validators.min(1), Validators.max(parseInt(localStorage.getItem('balance') as string))]);
+    this.form.controls['bet'].updateValueAndValidity()
+  }
 
   public nextStep(){
     this.changeStep.emit(3)

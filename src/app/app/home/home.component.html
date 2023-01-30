@@ -3,9 +3,11 @@
     <app-step-two *ngIf="step === 2" (changeStep)="step = $event" (dataFirstBet)="getFirstBet($event)"></app-step-two>
     <div *ngIf="step === 3">
         <div class="home__user">
-            <h4 *ngIf="true">Usuario: {{dataUser.name ? dataUser.name : 'Invitado'}}</h4>
-            <h4 *ngIf="true">Saldo: ${{dataUser.money}}</h4>
+            <h4 *ngIf="dataUser">Usuario: {{dataUser.name ? dataUser.name : 'Invitado'}}</h4>
+            <h4 *ngIf="dataUser">Saldo: ${{dataUser ? dataUser.money : ''}}</h4>
         </div>
-        <app-chart (updateBalance)="updateBalance($event)" [balance]="dataUser.money" [currentBet]="dataFirstBet"></app-chart>
+        <!-- Gráfico con estadísticas -->
+        <app-chart (updateBalance)="updateBalance($event)" [balance]="dataUser ? dataUser.money : 0" [currentBet]="dataFirstBet"></app-chart>
+        <!-- Gráfico con estadísticas -->
     </div>
 </div>

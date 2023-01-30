@@ -1,0 +1,11 @@
+<div>
+    <h3 class="stats__title">Estadísticas</h3>
+    <div><span class="stats__weigth">Mayor ganancia: </span>${{higherProfit}}</div>   
+</div>
+<div class="stats">
+   <app-accordion [items]="allStats"></app-accordion>
+   <div>
+    <h4>Multiplicador (últimas 7 partidas)</h4>
+    <p *ngFor="let statMultiplier of statsMultiplier"><span>Ronda {{statMultiplier.id}}:</span>  {{statMultiplier.explotion | number}}</p>
+   </div>  
+</div>

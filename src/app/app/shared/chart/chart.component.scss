@@ -10,9 +10,19 @@
         gap: 50px;
         @media screen and (max-width: 600px) {
             flex-direction: column;
+            min-height: unset;
+            gap: 5px;
         }
         h3{
             white-space: nowrap;
+            font-weight: 500;
         }
+    }    
+
+    &__explotion-text{
+        @media screen and (max-width: 600px) {
+            display: flex;
+            flex-direction: column;
+        }        
     }
 }
